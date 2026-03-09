@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        :root { --primary: #2563eb; --success: #22c55e; --error: #ef4444; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8fafc; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 450px; background: white; padding: 20px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border-radius: 12px; margin-top: 20px; }
+        h2 { color: #1e293b; margin-bottom: 10px; text-align: center; }
+        #reader { border: none !important; border-radius: 8px; overflow: hidden; }
+        #result-container { margin-top: 20px; padding: 15px; border-radius: 8px; text-align: center; display: none; }
+        .btn-next { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 10px; width: 100%; }
+        .status-text { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>EESoc Conference '26</h2>
+    <div id="reader"></div>
+    
+    <div id="result-container">
+        <div id="status" class="status-text"></div>
+        <button id="resume-btn" class="btn-next" onclick="resumeScanner()">Scan Next Participant</button>
+    </div>
+</div>
+
+<script>
+    const secretKey = "UOM_CONFERENCE_2026";
+    // !!! PASTE YOUR GOOGLE WEB APP URL HERE !!!
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxvBauL7px7lmOf3WUtg3k5J0Fp-tpj7tjcC0hydlK4HZSXW_Uf99RahOjuQuYkbd58ow/exec"; 
+    
+    let html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+
+    function onScanSuccess(decodedText) {
+        html5QrcodeScanner.pause(true); 
+        const resultBox = document.getElementById('result-container');
+        const statusText = document.getElementById('status');
+        
+        statusText.innerText = "Verifying...";
+        resultBox.style.display = "block";
+        resultBox.style.background = "#f1f5f9";
+
+        const requestUrl = GOOGLE_SCRIPT_URL + "?id=" + encodeURIComponent(decodedText.trim()) + "&key=" + encodeURIComponent(secretKey);
+
+        fetch(requestUrl)
+            .then(response => response.text())
+            .then(response => {
+                statusText.innerText = response;
+                if (response.includes("Success")) {
+                    resultBox.style.background = "#dcfce7";
+                    statusText.style.color = "var(--success)";
+                } else {
+                    resultBox.style.background = "#fee2e2";
+                    statusText.style.color = "var(--error)";
+                }
+            })
+            .catch(error => {
+                statusText.innerText = "Connection Error!";
+                statusText.style.color = "var(--error)";
+            });
+    }
+
+    function resumeScanner() {
+        document.getElementById('result-container').style.display = "none";
+        html5QrcodeScanner.resume();
+    }
+
+    html5QrcodeScanner.render(onScanSuccess);
+</script>
+</body>
+</html>
