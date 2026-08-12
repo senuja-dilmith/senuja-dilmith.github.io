@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTricks Pathfinder | Senuja Dilmith Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #151a36;
+            --bg-card: #1a1f3a;
+            --blue-primary: #3b82f6;
+            --blue-secondary: #60a5fa;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --accent-cyan: #22d3ee;
+            --accent-purple: #a78bfa;
+            --shadow-blue: rgba(59, 130, 246, 0.3);
+            --border: rgba(96, 165, 250, 0.3);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        a { color: inherit; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .project-header {
+            padding: 3rem 0 2rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(10, 14, 39, 0.8);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--blue-secondary);
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .project-hero {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 4vw, 4rem);
+            margin: 0 0 1rem;
+            line-height: 1.1;
+        }
+
+        .project-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .hero-visual {
+            min-height: 300px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(34, 211, 238, 0.6));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-content {
+            padding: 3rem 0 5rem;
+        }
+
+        .overview {
+            display: grid;
+            grid-template-columns: 1.5fr 0.9fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: rgba(26, 31, 58, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1.7rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .card h2, .card h3 {
+            margin-top: 0;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+        }
+
+        .meta-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .meta-item {
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .meta-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .meta-item strong {
+            display: block;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .meta-item span {
+            color: var(--text-secondary);
+        }
+
+        .highlight-grid, .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .highlight-card {
+            background: rgba(26, 31, 58, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.4rem;
+        }
+
+        .highlight-card ul {
+            margin: 0;
+            padding-left: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .gallery-item {
+            background: rgba(26, 31, 58, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .media-box {
+            min-height: 220px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(167, 139, 250, 0.4));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 0.06em;
+            color: rgba(255,255,255,0.9);
+            padding: 1rem;
+        }
+
+        .video-box {
+            background: linear-gradient(135deg, rgba(17, 24, 39, 1), rgba(59, 130, 246, 0.5));
+        }
+
+        .gallery-item p {
+            padding: 1rem 1rem 1.2rem;
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        .link-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .project-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            padding: 0.9rem 1.3rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--blue-primary), var(--accent-cyan));
+            color: white;
+            font-weight: 700;
+            transition: transform 0.2s ease;
+        }
+
+        .project-link-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .achievement-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 0;
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .achievement-list li {
+            position: relative;
+            padding-left: 1.6rem;
+            color: var(--text-secondary);
+        }
+
+        .achievement-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        footer {
+            padding: 2rem 0 3rem;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 850px) {
+            .project-hero, .overview {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="project-header">
+        <div class="container">
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+            <div class="project-hero">
+                <div>
+                    <span class="eyebrow">Featured Product</span>
+                    <h1>GTricks Pathfinder</h1>
+                    <p class="project-subtitle">An offline, AI-powered wilderness safety node with LoRa connectivity</p>
+                </div>
+                <div class="hero-visual" aria-label="GTricks Pathfinder product preview">
+                    <img src="project-pathfinder/pathfinder.png" alt="GTricks Pathfinder cover image">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="project-content">
+        <div class="container">
+            <section class="overview">
+                <div class="card">
+                    <h2>Project Overview</h2>
+                    <p>
+                        PathFinder is an industrial-grade AIoT safety network engineered for remote environments where conventional telecommunications infrastructure is entirely absent. The system deploys autonomous smart posts at 2–5 km intervals along hiking trails, coastal zones, and wilderness areas, creating a self-sustaining, offline-first mesh network that enables emergency communication, real-time environmental monitoring, and wildlife threat detection — without any dependency on cellular networks, internet connectivity, or satellite subscriptions.
+                    </p>
+                    <p>
+                        The project was developed by Team GTricks at the University of Moratuwa for the SLIoT Challenge 2026 under the theme <em>AIoT for a Sustainable Future</em>.
+                    </p>
+                </div>
+
+                <aside class="card">
+                    <h3>Project Details</h3>
+                    <div class="meta-list">
+                        <div class="meta-item">
+                            <strong>Category</strong>
+                            <span>AIoT Safety System</span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Focus</strong>
+                            <span>Offline communication, emergency response, environmental monitoring</span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Technology</strong>
+                            <span>LoRa, AI, sensing, smart node deployment</span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Team</strong>
+                            <span>Team GTricks</span>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="card" style="margin-bottom: 2rem;">
+                <h2>Why it matters</h2>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h3>Offline-first design</h3>
+                        <ul>
+                            <li>Built to work without cellular or internet access.</li>
+                            <li>Ideal for remote trails, forests, and coastal areas.</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-card">
+                        <h3>Smart safety network</h3>
+                        <ul>
+                            <li>Supports emergency communication and alerts.</li>
+                            <li>Creates a connected safety layer across long distances.</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-card">
+                        <h3>AI and monitoring</h3>
+                        <ul>
+                            <li>Supports real-time environmental awareness.</li>
+                            <li>Includes wildlife threat detection and situation monitoring.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" style="margin-bottom: 2rem;">
+                <h2>Product Gallery</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="project-pathfinder/product1.png" alt="GTricks Pathfinder product front view" style="width:100%; height:220px; object-fit:cover; display:block;">
+                        <p>Front view of the GTricks Pathfinder node.</p>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="project-pathfinder/product2.png" alt="GTricks Pathfinder product hardware" style="width:100%; height:220px; object-fit:cover; display:block;">
+                        <p>Deployment-ready hardware design for remote safety use.</p>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="project-pathfinder/team-photo.png" alt="GTricks Pathfinder team photo" style="width:100%; height:220px; object-fit:cover; display:block;">
+                        <p>Team GTricks during the challenge presentation.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" style="margin-bottom: 2rem;">
+                <h2>Project Links</h2>
+                <div class="link-list">
+                    <a class="project-link-btn" href="https://www.linkedin.com/posts/senuja-dilmith-745825349_sliotchallenge2026-teamgtricks-universityofmoratuwa-ugcPost-7482321076421697536-Pa1q/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFcnN-UBbr5jnr6E6rHCfVg78KUNn9FJ8jc" target="_blank" rel="noreferrer">
+                        <i class="fab fa-linkedin"></i> LinkedIn Post
+                    </a>
+                    <a class="project-link-btn" href="https://github.com/senuja-dilmith/SLIoT-Pathfinder-GTricks.git" target="_blank" rel="noreferrer">
+                        <i class="fab fa-github"></i> GitHub Repository
+                    </a>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Achievements</h2>
+                <ul class="achievement-list">
+                    <li>Developed by Team GTricks at the University of Moratuwa.</li>
+                    <li>Presented under the SLIoT Challenge 2026 theme: AIoT for a Sustainable Future.</li>
+                    <li>Designed to address real-world wilderness safety challenges in connectivity-limited environments.</li>
+                    <li>Demonstrates practical AIoT innovation for remote monitoring and emergency response.</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">© 2026 Senuja Dilmith</div>
+    </footer>
+</body>
+</html>
